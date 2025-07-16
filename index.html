@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>369 게임: 난이도 선택</title>
+  <title>369 게임: 제한 시간 포함</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -20,13 +20,17 @@
     </div>
 
     <div id="turn-info">당신의 차례입니다</div>
+    <div id="timer">남은 시간: 10초</div>
     <div id="game-log"></div>
+
     <input type="text" id="userInput" placeholder="숫자 또는 짝!" autocomplete="off" />
     <button onclick="handleUserTurn()">입력</button>
     <button id="resetButton" onclick="resetGame()">다시하기</button>
+
     <div id="game-result"></div>
   </div>
 
   <script src="script.js"></script>
 </body>
 </html>
+
