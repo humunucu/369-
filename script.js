@@ -1,98 +1,87 @@
-let currentNumber = 1;
-let gameOver = false;
-
-function isClapNumber(num) {
-  const str = num.toString();
-  let count = 0;
-  for (let char of str) {
-    if (["3", "6", "9"].includes(char)) {
-      count++;
-    }
-  }
-  return count > 0 ? "짝!".repeat(count) : num.toString();
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f0f8ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
 }
 
-function logMessage(message) {
-  const log = document.getElementById("game-log");
-  log.textContent += message + "\n";
-  log.scrollTop = log.scrollHeight;
+.game-container {
+  background-color: white;
+  padding: 2em;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 360px;
 }
 
-function getComputerMistakeRate() {
-  const difficulty = document.getElementById("difficulty").value;
-  if (difficulty === "easy") return 0.15;   // 15% 실수
-  if (difficulty === "normal") return 0.05; // 5% 실수
-  if (difficulty === "hard") return 0.001;  // 0.1% 실수
-  return 0.05;
+h1 {
+  color: #2c3e50;
 }
 
-function handleUserTurn() {
-  if (gameOver) return;
-
-  const input = document.getElementById("userInput").value.trim();
-  const correct = isClapNumber(currentNumber);
-
-  if (input !== correct) {
-    document.getElementById("game-result").textContent = `❌ 틀렸어요! 정답은 "${correct}"였습니다. 게임 오버!`;
-    gameOver = true;
-    return;
-  }
-
-  logMessage(`👤 사용자: ${input}`);
-  currentNumber++;
-  document.getElementById("userInput").value = "";
-  document.getElementById("turn-info").textContent = "컴퓨터의 차례입니다";
-
-  setTimeout(computerTurn, 1000);
+.difficulty-select {
+  margin-bottom: 1em;
 }
 
-function computerTurn() {
-  if (gameOver) return;
-
-  const mistakeRate = getComputerMistakeRate();
-  const correctAnswer = isClapNumber(currentNumber);
-  let computerAnswer;
-
-  if (Math.random() < mistakeRate) {
-    if (correctAnswer.includes("짝")) {
-      computerAnswer = (Math.random() < 0.5) ? currentNumber.toString() : "짝!";
-    } else {
-      computerAnswer = "짝!";
-    }
-  } else {
-    computerAnswer = correctAnswer;
-  }
-
-  logMessage(`🤖 컴퓨터: ${computerAnswer}`);
-
-  if (computerAnswer !== correctAnswer) {
-    document.getElementById("game-result").textContent = `🎉 컴퓨터가 틀렸어요! 당신의 승리!`;
-    gameOver = true;
-    return;
-  }
-
-  currentNumber++;
-  document.getElementById("turn-info").textContent = "당신의 차례입니다";
+#turn-info {
+  font-weight: bold;
+  margin-bottom: 0.5em;
 }
 
-function resetGame() {
-  currentNumber = 1;
-  gameOver = false;
-  document.getElementById("game-log").textContent = "";
-  document.getElementById("game-result").textContent = "";
-  document.getElementById("turn-info").textContent = "당신의 차례입니다";
-  document.getElementById("userInput").value = "";
-  document.getElementById("userInput").focus();
+#timer {
+  color: #e74c3c;
+  font-weight: bold;
+  margin-bottom: 1em;
 }
 
-// ⌨️ Enter 키 입력 지원
-document.addEventListener("DOMContentLoaded", () => {
-  const inputBox = document.getElementById("userInput");
-  inputBox.focus();
+#game-log {
+  background-color: #f9f9f9;
+  padding: 1em;
+  height: 150px;
+  overflow-y: auto;
+  margin-bottom: 1em;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+  font-size: 0.95em;
+  white-space: pre-line;
+}
 
-  inputBox.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-      handleUserTurn();
-    }
-  });
-});
+input {
+  padding: 0.5em;
+  font-size: 1em;
+  width: 80%;
+  margin-bottom: 1em;
+}
+
+button {
+  padding: 0.5em 1em;
+  font-size: 1em;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 0.2em;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+#resetButton {
+  background-color: #e74c3c;
+}
+
+#resetButton:hover {
+  background-color: #c0392b;
+}
+
+#game-result {
+  margin-top: 1em;
+  font-weight: bold;
+  color: red;
+}
+
