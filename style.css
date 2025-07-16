@@ -27,6 +27,12 @@ h1 {
 
 #turn-info {
   font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+#timer {
+  color: #e74c3c;
+  font-weight: bold;
   margin-bottom: 1em;
 }
 
@@ -78,3 +84,4 @@ button:hover {
   font-weight: bold;
   color: red;
 }
+
